@@ -1,0 +1,1200 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Розклад занять — Група 276-3 | ЧНУ</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg-gradient: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+      --surface: rgba(30, 41, 59, 0.85);
+      --surface-border: rgba(255, 255, 255, 0.08);
+      --surface-hover: rgba(51, 65, 85, 0.85);
+      --text-main: #f8fafc;
+      --text-muted: #94a3b8;
+      --primary: #38bdf8;
+      --primary-glow: rgba(56, 189, 248, 0.25);
+      --accent: #818cf8;
+      --accent-badge: rgba(129, 140, 248, 0.15);
+      --success: #34d399;
+      --warning: #fbbf24;
+      --card-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.3), 0 8px 10px -6px rgba(0, 0, 0, 0.3);
+      --radius: 16px;
+    }
+
+    [data-theme="light"] {
+      --bg-gradient: linear-gradient(135deg, #f1f5f9 0%, #e2e8f0 100%);
+      --surface: rgba(255, 255, 255, 0.9);
+      --surface-border: rgba(0, 0, 0, 0.08);
+      --surface-hover: rgba(241, 245, 249, 0.95);
+      --text-main: #0f172a;
+      --text-muted: #64748b;
+      --primary: #0284c7;
+      --primary-glow: rgba(2, 132, 199, 0.2);
+      --accent: #6366f1;
+      --accent-badge: rgba(99, 102, 241, 0.1);
+      --card-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.06), 0 8px 10px -6px rgba(0, 0, 0, 0.04);
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+      transition: background-color 0.25s ease, border-color 0.25s ease, color 0.25s ease;
+    }
+
+    body {
+      min-height: 100vh;
+      background: var(--bg-gradient);
+      color: var(--text-main);
+      padding: 24px 16px 60px;
+    }
+
+    .container {
+      max-width: 1080px;
+      margin: 0 auto;
+    }
+
+    /* Header */
+    header {
+      text-align: center;
+      margin-bottom: 28px;
+      position: relative;
+    }
+
+    .header-top {
+      display: flex;
+      justify-content: flex-end;
+      align-items: center;
+      margin-bottom: 12px;
+    }
+
+    .theme-btn {
+      background: var(--surface);
+      border: 1px solid var(--surface-border);
+      color: var(--text-main);
+      padding: 8px 14px;
+      border-radius: 20px;
+      cursor: pointer;
+      font-size: 13px;
+      font-weight: 600;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      backdrop-filter: blur(10px);
+    }
+
+    .badge-univ {
+      display: inline-block;
+      font-size: 12px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      color: var(--primary);
+      background: var(--primary-glow);
+      padding: 6px 14px;
+      border-radius: 999px;
+      margin-bottom: 12px;
+      border: 1px solid rgba(56, 189, 248, 0.3);
+    }
+
+    h1 {
+      font-size: 32px;
+      font-weight: 800;
+      letter-spacing: -0.5px;
+      margin-bottom: 8px;
+    }
+
+    .sub-title {
+      font-size: 15px;
+      color: var(--text-muted);
+      max-width: 600px;
+      margin: 0 auto;
+      line-height: 1.5;
+    }
+
+    /* Status Bar / Widget */
+    .status-bar {
+      background: var(--surface);
+      border: 1px solid var(--surface-border);
+      border-radius: var(--radius);
+      padding: 16px 20px;
+      margin-bottom: 24px;
+      backdrop-filter: blur(12px);
+      box-shadow: var(--card-shadow);
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .current-status {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 14px;
+    }
+
+    .status-dot {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      background: var(--success);
+      box-shadow: 0 0 10px var(--success);
+    }
+
+    .time-badge {
+      font-weight: 700;
+      color: var(--primary);
+    }
+
+    /* Controls: filters & search */
+    .controls {
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+      margin-bottom: 28px;
+    }
+
+    .filters-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      justify-content: center;
+    }
+
+    .filter-btn {
+      background: var(--surface);
+      border: 1px solid var(--surface-border);
+      color: var(--text-muted);
+      padding: 8px 18px;
+      border-radius: 12px;
+      font-size: 13.5px;
+      font-weight: 600;
+      cursor: pointer;
+      backdrop-filter: blur(8px);
+    }
+
+    .filter-btn:hover {
+      background: var(--surface-hover);
+      color: var(--text-main);
+    }
+
+    .filter-btn.active {
+      background: var(--primary);
+      color: #0f172a;
+      border-color: var(--primary);
+      box-shadow: 0 0 15px var(--primary-glow);
+    }
+
+    .search-input {
+      width: 100%;
+      max-width: 480px;
+      margin: 0 auto;
+      display: block;
+      background: var(--surface);
+      border: 1px solid var(--surface-border);
+      border-radius: 12px;
+      padding: 12px 18px;
+      color: var(--text-main);
+      font-size: 14px;
+      outline: none;
+      backdrop-filter: blur(10px);
+    }
+
+    .search-input:focus {
+      border-color: var(--primary);
+      box-shadow: 0 0 0 3px var(--primary-glow);
+    }
+
+    
+    .period-banner {
+      background: var(--surface);
+      border: 1px solid rgba(251, 191, 36, 0.4);
+      border-radius: var(--radius);
+      padding: 14px 18px;
+      margin-bottom: 22px;
+      backdrop-filter: blur(12px);
+      box-shadow: var(--card-shadow);
+    }
+    .period-banner-content {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      align-items: center;
+      gap: 12px;
+    }
+    .period-status-text {
+      font-size: 13.5px;
+      line-height: 1.45;
+      color: var(--text-main);
+      flex: 1 1 340px;
+    }
+    .period-status-text strong {
+      color: var(--warning);
+    }
+    .period-buttons {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+    .lesson-notice {
+      border-left: 4px solid var(--success) !important;
+      background: rgba(52, 211, 153, 0.05) !important;
+    }
+
+    /* Schedule Days Grid */
+    .schedule-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 24px;
+    }
+
+    .day-card {
+      background: var(--surface);
+      border: 1px solid var(--surface-border);
+      border-radius: var(--radius);
+      overflow: hidden;
+      box-shadow: var(--card-shadow);
+      backdrop-filter: blur(12px);
+    }
+
+    .day-header {
+      padding: 16px 20px;
+      background: rgba(255, 255, 255, 0.03);
+      border-bottom: 1px solid var(--surface-border);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .day-title {
+      font-size: 18px;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .day-badge {
+      font-size: 12px;
+      font-weight: 600;
+      color: var(--text-muted);
+      background: rgba(255, 255, 255, 0.06);
+      padding: 4px 10px;
+      border-radius: 8px;
+    }
+
+    .lessons-list {
+      padding: 12px 16px;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .lesson-item {
+      display: grid;
+      grid-template-columns: 85px 1fr auto;
+      gap: 16px;
+      align-items: center;
+      padding: 14px 16px;
+      border-radius: 12px;
+      background: rgba(255, 255, 255, 0.02);
+      border: 1px solid var(--surface-border);
+    }
+
+    .lesson-item:hover {
+      background: var(--surface-hover);
+      border-color: rgba(56, 189, 248, 0.3);
+    }
+
+    .time-col {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+
+    .pair-num {
+      font-size: 12px;
+      font-weight: 700;
+      color: var(--accent);
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    .pair-time {
+      font-size: 13.5px;
+      font-weight: 600;
+      color: var(--text-main);
+    }
+
+    .info-col {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+
+    .lesson-subject {
+      font-size: 15.5px;
+      font-weight: 700;
+      color: var(--text-main);
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .type-pill {
+      font-size: 11px;
+      font-weight: 700;
+      padding: 2px 8px;
+      border-radius: 6px;
+      text-transform: uppercase;
+    }
+
+    .type-lec {
+      background: rgba(56, 189, 248, 0.15);
+      color: #38bdf8;
+      border: 1px solid rgba(56, 189, 248, 0.3);
+    }
+
+    .type-prac {
+      background: rgba(52, 211, 153, 0.15);
+      color: #34d399;
+      border: 1px solid rgba(52, 211, 153, 0.3);
+    }
+
+    .type-spec {
+      background: rgba(251, 191, 36, 0.15);
+      color: #fbbf24;
+      border: 1px solid rgba(251, 191, 36, 0.3);
+    }
+
+    .week-pill {
+      font-size: 11px;
+      font-weight: 600;
+      padding: 2px 8px;
+      border-radius: 6px;
+      background: rgba(255, 255, 255, 0.08);
+      color: var(--text-muted);
+    }
+
+    .lesson-teacher {
+      font-size: 13.5px;
+      color: var(--text-muted);
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .lesson-note {
+      font-size: 12px;
+      color: var(--warning);
+      font-weight: 500;
+      margin-top: 2px;
+    }
+
+    .room-col {
+      text-align: right;
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+      align-items: flex-end;
+    }
+
+    .room-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      background: var(--accent-badge);
+      color: var(--accent);
+      padding: 6px 12px;
+      border-radius: 8px;
+      font-size: 13px;
+      font-weight: 700;
+      border: 1px solid rgba(129, 140, 248, 0.3);
+      white-space: nowrap;
+    }
+
+    .room-online {
+      background: rgba(52, 211, 153, 0.15);
+      color: #34d399;
+      border-color: rgba(52, 211, 153, 0.3);
+    }
+
+    /* Section for Saturdays */
+    .saturday-card {
+      border: 1px dashed rgba(251, 191, 36, 0.4);
+      background: rgba(251, 191, 36, 0.03);
+    }
+
+    .sat-header {
+      color: var(--warning);
+    }
+
+    footer {
+      text-align: center;
+      margin-top: 40px;
+      font-size: 13px;
+      color: var(--text-muted);
+    }
+
+    footer a {
+      color: var(--primary);
+      text-decoration: none;
+    }
+
+    footer a:hover {
+      text-decoration: underline;
+    }
+
+    @media (max-width: 680px) {
+      .lesson-item {
+        grid-template-columns: 1fr;
+        gap: 10px;
+      }
+      .room-col {
+        align-items: flex-start;
+        text-align: left;
+      }
+      .time-col {
+        flex-direction: row;
+        gap: 8px;
+        align-items: baseline;
+      }
+      h1 {
+        font-size: 24px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <header>
+      <div class="header-top">
+        <button class="theme-btn" id="themeToggle" onclick="toggleTheme()">
+          <span id="themeIcon">☀️</span> <span id="themeText">Світла тема</span>
+        </button>
+      </div>
+      <div class="badge-univ">ЧНУ імені Юрія Федьковича • Економічний факультет</div>
+      <h1>Розклад занять: Група 276-3</h1>
+      <p class="sub-title">2 курс • І семестр 2026-2027 н.р. • Менеджмент (Підприємництво та управління бізнесом)</p>
+    </header>
+
+    <!-- Interactive Live Status Bar -->
+    <div class="status-bar">
+      <div class="current-status">
+        <div class="status-dot"></div>
+        <div>
+          <span id="currentDateStr">Понеділок, 7 вересня</span> • <span id="currentWeekType" class="time-badge">Чисельник (І тиждень)</span>
+        </div>
+      </div>
+      <div id="pairTimer" style="font-size: 13.5px; font-weight: 600; color: var(--text-muted);">
+        Оновлення статусу...
+      </div>
+    </div>
+
+    
+    <!-- Active Schedule Period Banner & Switcher (Auto switch after Oct 28) -->
+    <div class="period-banner" id="periodBanner">
+      <div class="period-banner-content">
+        <div class="period-status-text">
+          <strong id="periodStatusTitle">⚡ Тимчасовий розклад (до 28 жовтня)</strong>:
+          <span id="periodStatusDesc">ОНС проводиться у середу (4, 5, 6 пари), фінансову грамотність тимчасово скасовано, у понеділок занять немає. З 29 жовтня розклад автоматично повернеться до звичного.</span>
+        </div>
+        <div class="period-buttons">
+          <button class="filter-btn active" id="btnPeriodTemp" onclick="setPeriodFilter('temp', this)">⚡ До 28 жовтня (ОНС у Ср)</button>
+          <button class="filter-btn" id="btnPeriodRegular" onclick="setPeriodFilter('regular', this)">🗓️ Після 28 жовтня (Базовий)</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Controls -->
+    <div class="controls">
+      <!-- Week Switcher -->
+      <div class="filters-row">
+        <button class="filter-btn active" data-week="all" onclick="setWeekFilter('all', this)">Всі тижні</button>
+        <button class="filter-btn" data-week="1" onclick="setWeekFilter('1', this)">І тиждень (Чисельник)</button>
+        <button class="filter-btn" data-week="2" onclick="setWeekFilter('2', this)">ІІ тиждень (Знаменник)</button>
+      </div>
+
+      <!-- Day Switcher -->
+      <div class="filters-row">
+        <button class="filter-btn active" data-day="all" onclick="setDayFilter('all', this)">Всі дні</button>
+        <button class="filter-btn" data-day="mon" onclick="setDayFilter('mon', this)">Пн</button>
+        <button class="filter-btn" data-day="tue" onclick="setDayFilter('tue', this)">Вт</button>
+        <button class="filter-btn" data-day="wed" onclick="setDayFilter('wed', this)">Ср</button>
+        <button class="filter-btn" data-day="thu" onclick="setDayFilter('thu', this)">Чт</button>
+        <button class="filter-btn" data-day="fri" onclick="setDayFilter('fri', this)">Пт</button>
+        <button class="filter-btn" data-day="sat" onclick="setDayFilter('sat', this)">Відпрацювання</button>
+      </div>
+
+      <!-- Search Input -->
+      <input type="text" id="searchInput" class="search-input" placeholder="🔍 Пошук предмета, викладача чи аудиторії..." oninput="filterLessons()">
+    </div>
+
+    <!-- Schedule Grid -->
+    <div class="schedule-grid" id="scheduleContainer">
+      
+            <!-- ПОНЕДІЛОК -->
+      <div class="day-card" data-day-name="mon">
+        <div class="day-header">
+          <div class="day-title">📅 Понеділок</div>
+          <span class="day-badge" id="monBadge">Занять немає (перенесено)</span>
+        </div>
+        <div class="lessons-list">
+          <!-- До 28 жовтня: Повідомлення про перенесення пар ОНС на середу -->
+          <div class="lesson-item lesson-notice" data-period="temp" data-week="both" data-search="понеділок вихідний онс перенесено на середу">
+            <div class="time-col">
+              <span class="pair-num" style="color: var(--success);">День вільний</span>
+              <span class="pair-time">—</span>
+            </div>
+            <div class="info-col">
+              <div class="lesson-subject" style="color: var(--success);">
+                🎉 Занять немає (ОНС тимчасово у середу)
+                <span class="type-pill type-prac">До 28 жовтня</span>
+              </div>
+              <div class="lesson-teacher">Пари з Основ національного спротиву (ОНС) тимчасово перенесені на середу (4, 5, 6 пари).</div>
+              <div class="lesson-note" style="color: var(--text-muted);">🗓️ З 29 жовтня пари повернуться на понеділок з 13:00.</div>
+            </div>
+            <div class="room-col">
+              <span class="room-badge room-online">Без занять</span>
+            </div>
+          </div>
+
+          <!-- Після 28 жовтня: Звичайний розклад понеділка -->
+          <div class="lesson-item" data-period="regular" data-week="both" data-search="основи національного спротиву онс військова кафедра">
+            <div class="time-col">
+              <span class="pair-num">4 пара</span>
+              <span class="pair-time">13:00 - 14:20</span>
+            </div>
+            <div class="info-col">
+              <div class="lesson-subject">
+                Основи національного спротиву (ОНС)
+                <span class="type-pill type-spec">Військова кафедра</span>
+                <span class="week-pill">Щотижня</span>
+              </div>
+              <div class="lesson-teacher">Кафедра військової підготовки / ОНС</div>
+              <div class="lesson-note">🗓️ Звичайний розклад (діє з 29 жовтня)</div>
+            </div>
+            <div class="room-col">
+              <span class="room-badge">Військова каф.</span>
+            </div>
+          </div>
+
+          <div class="lesson-item" data-period="regular" data-week="both" data-search="основи національного спротиву онс військова кафедра">
+            <div class="time-col">
+              <span class="pair-num">5 пара</span>
+              <span class="pair-time">14:40 - 16:00</span>
+            </div>
+            <div class="info-col">
+              <div class="lesson-subject">
+                Основи національного спротиву (ОНС)
+                <span class="type-pill type-spec">Військова кафедра</span>
+                <span class="week-pill">Щотижня</span>
+              </div>
+              <div class="lesson-teacher">Кафедра військової підготовки / ОНС</div>
+              <div class="lesson-note">🗓️ Звичайний розклад (діє з 29 жовтня)</div>
+            </div>
+            <div class="room-col">
+              <span class="room-badge">Військова каф.</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ВІВТОРОК -->
+      <div class="day-card" data-day-name="tue">
+        <div class="day-header">
+          <div class="day-title">📅 Вівторок</div>
+          <span class="day-badge">3 пари</span>
+        </div>
+        <div class="lessons-list">
+          <div class="lesson-item" data-week="both" data-search="податкова система жаворонок 19 307">
+            <div class="time-col">
+              <span class="pair-num">1 пара</span>
+              <span class="pair-time">08:20 - 09:40</span>
+            </div>
+            <div class="info-col">
+              <div class="lesson-subject">
+                Податкова система
+                <span class="type-pill type-prac">Практична</span>
+                <span class="week-pill">Щотижня</span>
+              </div>
+              <div class="lesson-teacher">👤 Жаворонок А.В.</div>
+            </div>
+            <div class="room-col">
+              <span class="room-badge">к. 19, ауд. 307</span>
+            </div>
+          </div>
+
+          <div class="lesson-item" data-week="both" data-search="іноземна мова за пс матійчак 19 206">
+            <div class="time-col">
+              <span class="pair-num">3 пара</span>
+              <span class="pair-time">11:30 - 12:50</span>
+            </div>
+            <div class="info-col">
+              <div class="lesson-subject">
+                Іноземна мова за ПС
+                <span class="type-pill type-prac">Практична</span>
+                <span class="week-pill">Щотижня</span>
+              </div>
+              <div class="lesson-teacher">👤 Матійчак А.А.</div>
+            </div>
+            <div class="room-col">
+              <span class="room-badge">к. 19, ауд. 206</span>
+            </div>
+          </div>
+
+          <div class="lesson-item" data-week="both" data-search="макроекономіка кузьмук 19 307">
+            <div class="time-col">
+              <span class="pair-num">4 пара</span>
+              <span class="pair-time">13:00 - 14:20</span>
+            </div>
+            <div class="info-col">
+              <div class="lesson-subject">
+                Макроекономіка
+                <span class="type-pill type-lec">Лекція</span>
+                <span class="week-pill">Щотижня</span>
+              </div>
+              <div class="lesson-teacher">👤 Кузьмук І.Я.</div>
+            </div>
+            <div class="room-col">
+              <span class="room-badge">к. 19, ауд. 307</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+            <!-- СЕРЕДА -->
+      <div class="day-card" data-day-name="wed">
+        <div class="day-header">
+          <div class="day-title">📅 Середа</div>
+          <span class="day-badge" id="wedBadge">6 пар (з ОНС)</span>
+        </div>
+        <div class="lessons-list">
+          <div class="lesson-item" data-period="both" data-week="both" data-search="управління командами кифяк 14 60">
+            <div class="time-col">
+              <span class="pair-num">1 пара</span>
+              <span class="pair-time">08:20 - 09:40</span>
+            </div>
+            <div class="info-col">
+              <div class="lesson-subject">
+                Управління командами
+                <span class="type-pill type-lec">Лекція</span>
+                <span class="week-pill">Щотижня</span>
+              </div>
+              <div class="lesson-teacher">👤 Кифяк В.І.</div>
+            </div>
+            <div class="room-col">
+              <span class="room-badge">к. 14, ауд. 60</span>
+            </div>
+          </div>
+
+          <div class="lesson-item" data-period="both" data-week="both" data-search="макроекономіка кузьмук 19 102">
+            <div class="time-col">
+              <span class="pair-num">2 пара</span>
+              <span class="pair-time">09:50 - 11:10</span>
+            </div>
+            <div class="info-col">
+              <div class="lesson-subject">
+                Макроекономіка
+                <span class="type-pill type-prac">Практична</span>
+                <span class="week-pill">Щотижня</span>
+              </div>
+              <div class="lesson-teacher">👤 Кузьмук І.Я.</div>
+            </div>
+            <div class="room-col">
+              <span class="room-badge">к. 19, ауд. 102</span>
+            </div>
+          </div>
+
+          <div class="lesson-item" data-period="both" data-week="both" data-search="управління командами пентелейчук 14 61">
+            <div class="time-col">
+              <span class="pair-num">3 пара</span>
+              <span class="pair-time">11:30 - 12:50</span>
+            </div>
+            <div class="info-col">
+              <div class="lesson-subject">
+                Управління командами
+                <span class="type-pill type-prac">Практична</span>
+                <span class="week-pill">Щотижня</span>
+              </div>
+              <div class="lesson-teacher">👤 Пентелейчук М.Г.</div>
+            </div>
+            <div class="room-col">
+              <span class="room-badge">к. 14, ауд. 61</span>
+            </div>
+          </div>
+
+          <!-- Тимчасовий розклад: 4, 5, 6 пари ОНС у середу (до 28 жовтня) -->
+          <div class="lesson-item" data-period="temp" data-week="both" data-search="основи національного спротиву онс середа військова кафедра">
+            <div class="time-col">
+              <span class="pair-num">4 пара</span>
+              <span class="pair-time">13:00 - 14:20</span>
+            </div>
+            <div class="info-col">
+              <div class="lesson-subject">
+                Основи національного спротиву (ОНС)
+                <span class="type-pill type-spec">Військова кафедра</span>
+                <span class="week-pill">Щотижня</span>
+              </div>
+              <div class="lesson-teacher">Кафедра військової підготовки / ОНС</div>
+              <div class="lesson-note">⚡ Тимчасово замість фін. грамотності (до 28 жовтня)</div>
+            </div>
+            <div class="room-col">
+              <span class="room-badge">Військова каф.</span>
+            </div>
+          </div>
+
+          <div class="lesson-item" data-period="temp" data-week="both" data-search="основи національного спротиву онс середа військова кафедра">
+            <div class="time-col">
+              <span class="pair-num">5 пара</span>
+              <span class="pair-time">14:40 - 16:00</span>
+            </div>
+            <div class="info-col">
+              <div class="lesson-subject">
+                Основи національного спротиву (ОНС)
+                <span class="type-pill type-spec">Військова кафедра</span>
+                <span class="week-pill">Щотижня</span>
+              </div>
+              <div class="lesson-teacher">Кафедра військової підготовки / ОНС</div>
+              <div class="lesson-note">⚡ Тимчасово додана пара (до 28 жовтня)</div>
+            </div>
+            <div class="room-col">
+              <span class="room-badge">Військова каф.</span>
+            </div>
+          </div>
+
+          <div class="lesson-item" data-period="temp" data-week="both" data-search="основи національного спротиву онс середа військова кафедра">
+            <div class="time-col">
+              <span class="pair-num">6 пара</span>
+              <span class="pair-time">16:10 - 17:30</span>
+            </div>
+            <div class="info-col">
+              <div class="lesson-subject">
+                Основи національного спротиву (ОНС)
+                <span class="type-pill type-spec">Військова кафедра</span>
+                <span class="week-pill">Щотижня</span>
+              </div>
+              <div class="lesson-teacher">Кафедра військової підготовки / ОНС</div>
+              <div class="lesson-note">⚡ Тимчасово додана пара (до 28 жовтня)</div>
+            </div>
+            <div class="room-col">
+              <span class="room-badge">Військова каф.</span>
+            </div>
+          </div>
+
+          <!-- Базовий розклад: 4 пара Фінансова грамотність (після 28 жовтня) -->
+          <div class="lesson-item" data-period="regular" data-week="both" data-search="загальноуніверситетська фінансова грамотність грубляк онлайн 19 201 307">
+            <div class="time-col">
+              <span class="pair-num">4 пара</span>
+              <span class="pair-time">13:00 - 14:20</span>
+            </div>
+            <div class="info-col">
+              <div class="lesson-subject">
+                Фінансова грамотність
+                <span class="type-pill type-spec">Загальноуніверситетська</span>
+                <span class="week-pill">Щотижня</span>
+              </div>
+              <div class="lesson-teacher">👤 Грубляк О.М. (л/пр)</div>
+              <div class="lesson-note">🌐 Онлайн або офлайн: к. 19, ауд. 201 / ауд. 307 (діє з 29 жовтня)</div>
+            </div>
+            <div class="room-col">
+              <span class="room-badge room-online">Онлайн</span>
+              <span class="room-badge" style="font-size:11.5px;">к. 19, ауд. 201 / 307</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ЧЕТВЕР -->
+      <div class="day-card" data-day-name="thu">
+        <div class="day-header">
+          <div class="day-title">📅 Четвер</div>
+          <span class="day-badge">4 пари</span>
+        </div>
+        <div class="lessons-list">
+          <div class="lesson-item" data-week="both" data-search="менеджмент антохов 19 202">
+            <div class="time-col">
+              <span class="pair-num">1 пара</span>
+              <span class="pair-time">08:20 - 09:40</span>
+            </div>
+            <div class="info-col">
+              <div class="lesson-subject">
+                Менеджмент
+                <span class="type-pill type-prac">Практична</span>
+                <span class="week-pill">Щотижня</span>
+              </div>
+              <div class="lesson-teacher">👤 Антохов А.А.</div>
+            </div>
+            <div class="room-col">
+              <span class="room-badge">к. 19, ауд. 202</span>
+            </div>
+          </div>
+
+          <div class="lesson-item" data-week="both" data-search="економіка підприємства ксьондз 14 1">
+            <div class="time-col">
+              <span class="pair-num">2 пара</span>
+              <span class="pair-time">09:50 - 11:10</span>
+            </div>
+            <div class="info-col">
+              <div class="lesson-subject">
+                Економіка підприємства
+                <span class="type-pill type-lec">Лекція</span>
+                <span class="week-pill">Щотижня</span>
+              </div>
+              <div class="lesson-teacher">👤 Ксьондз С.В.</div>
+            </div>
+            <div class="room-col">
+              <span class="room-badge">к. 14, ауд. 1</span>
+            </div>
+          </div>
+
+          <div class="lesson-item" data-week="both" data-search="економіка підприємства темерівський 19 117">
+            <div class="time-col">
+              <span class="pair-num">3 пара</span>
+              <span class="pair-time">11:30 - 12:50</span>
+            </div>
+            <div class="info-col">
+              <div class="lesson-subject">
+                Економіка підприємства
+                <span class="type-pill type-prac">Практична</span>
+                <span class="week-pill">Щотижня</span>
+              </div>
+              <div class="lesson-teacher">👤 Темерівський В.В.</div>
+            </div>
+            <div class="room-col">
+              <span class="room-badge">к. 19, ауд. 117</span>
+            </div>
+          </div>
+
+          <div class="lesson-item" data-week="both" data-search="менеджмент антохов 19 307">
+            <div class="time-col">
+              <span class="pair-num">4 пара</span>
+              <span class="pair-time">13:00 - 14:20</span>
+            </div>
+            <div class="info-col">
+              <div class="lesson-subject">
+                Менеджмент
+                <span class="type-pill type-lec">Лекція</span>
+                <span class="week-pill">Щотижня</span>
+              </div>
+              <div class="lesson-teacher">👤 Антохов А.А.</div>
+            </div>
+            <div class="room-col">
+              <span class="room-badge">к. 19, ауд. 307</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- П'ЯТНИЦЯ -->
+      <div class="day-card" data-day-name="fri">
+        <div class="day-header">
+          <div class="day-title">📅 П'ятниця</div>
+          <span class="day-badge">2 пари</span>
+        </div>
+        <div class="lessons-list">
+          <!-- Франчайзинг (Week 1 - Лекція) -->
+          <div class="lesson-item" data-week="1" data-search="дв1 франчайзинг ілащук 14 45 лекція чисельник">
+            <div class="time-col">
+              <span class="pair-num">1 пара</span>
+              <span class="pair-time">08:20 - 09:40</span>
+            </div>
+            <div class="info-col">
+              <div class="lesson-subject">
+                ДВ1: Франчайзинг
+                <span class="type-pill type-lec">Лекція</span>
+                <span class="week-pill">І тиждень (Чисельник)</span>
+              </div>
+              <div class="lesson-teacher">👤 Ілащук С.А.</div>
+            </div>
+            <div class="room-col">
+              <span class="room-badge">к. 14, ауд. 45</span>
+            </div>
+          </div>
+
+          <!-- Франчайзинг (Week 2 - Практична) -->
+          <div class="lesson-item" data-week="2" data-search="дв1 франчайзинг ілащук 14 45 практична знаменник">
+            <div class="time-col">
+              <span class="pair-num">1 пара</span>
+              <span class="pair-time">08:20 - 09:40</span>
+            </div>
+            <div class="info-col">
+              <div class="lesson-subject">
+                ДВ1: Франчайзинг
+                <span class="type-pill type-prac">Практична</span>
+                <span class="week-pill">ІІ тиждень (Знаменник)</span>
+              </div>
+              <div class="lesson-teacher">👤 Ілащук С.А.</div>
+            </div>
+            <div class="room-col">
+              <span class="room-badge">к. 14, ауд. 45</span>
+            </div>
+          </div>
+
+          <!-- Податкова система -->
+          <div class="lesson-item" data-week="both" data-search="податкова система жаворонок 1 8 лекція">
+            <div class="time-col">
+              <span class="pair-num">3 пара</span>
+              <span class="pair-time">11:30 - 12:50</span>
+            </div>
+            <div class="info-col">
+              <div class="lesson-subject">
+                Податкова система
+                <span class="type-pill type-lec">Лекція</span>
+                <span class="week-pill">Щотижня</span>
+              </div>
+              <div class="lesson-teacher">👤 Жаворонок А.В.</div>
+            </div>
+            <div class="room-col">
+              <span class="room-badge">к. 1, ауд. 8</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ВІДПРАЦЮВАННЯ (СУБОТИ) -->
+      <div class="day-card saturday-card" data-day-name="sat">
+        <div class="day-header">
+          <div class="day-title sat-header">🔄 Робочі суботи (Відпрацювання)</div>
+          <span class="day-badge" style="color: var(--warning);">2 суботи</span>
+        </div>
+        <div class="lessons-list">
+          <div class="lesson-item" data-week="both" data-search="26.09.2026 субота понеділок і тиждень відпрацювання">
+            <div class="time-col">
+              <span class="pair-num" style="color: var(--warning);">26.09.2026</span>
+              <span class="pair-time">Субота</span>
+            </div>
+            <div class="info-col">
+              <div class="lesson-subject">
+                Відпрацювання за Понеділок (І тиждень)
+                <span class="type-pill type-spec">Відпрацювання</span>
+              </div>
+              <div class="lesson-teacher">Заняття проводяться за розкладом Понеділка І тижня</div>
+            </div>
+            <div class="room-col">
+              <span class="room-badge" style="border-color: rgba(251, 191, 36, 0.4); color: var(--warning);">Понеділок (І т.)</span>
+            </div>
+          </div>
+
+          <div class="lesson-item" data-week="both" data-search="17.10.2026 субота п'ятниця і тиждень відпрацювання">
+            <div class="time-col">
+              <span class="pair-num" style="color: var(--warning);">17.10.2026</span>
+              <span class="pair-time">Субота</span>
+            </div>
+            <div class="info-col">
+              <div class="lesson-subject">
+                Відпрацювання за П'ятницю (І тиждень)
+                <span class="type-pill type-spec">Відпрацювання</span>
+              </div>
+              <div class="lesson-teacher">Заняття проводяться за розкладом П'ятниці І тижня (Франчайзинг л., Податкова система л.)</div>
+            </div>
+            <div class="room-col">
+              <span class="room-badge" style="border-color: rgba(251, 191, 36, 0.4); color: var(--warning);">П'ятниця (І т.)</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <footer>
+      <p>Джерело: <a href="https://docs.google.com/spreadsheets/u/0/d/1GGM5LmAfV1kMkDh2PyVZkBB3Wc0gaQQs/htmlview" target="_blank" rel="noopener">Офіційний розклад ЧНУ (Google Таблиця)</a></p>
+      <p style="margin-top: 6px; font-size: 11.5px; opacity: 0.7;">Створено для студента 2 курсу, спеціальність «Менеджмент (Підприємництво та управління бізнесом)»</p>
+    </footer>
+  </div>
+
+  <script>
+    // Theme Switcher
+    function toggleTheme() {
+      const current = document.documentElement.getAttribute('data-theme');
+      const target = current === 'light' ? 'dark' : 'light';
+      document.documentElement.setAttribute('data-theme', target);
+      document.getElementById('themeIcon').textContent = target === 'light' ? '🌙' : '☀️';
+      document.getElementById('themeText').textContent = target === 'light' ? 'Темна тема' : 'Світла тема';
+      localStorage.setItem('sched_theme', target);
+    }
+
+    // Init Theme
+    const savedTheme = localStorage.getItem('sched_theme') || 'dark';
+    document.documentElement.setAttribute('data-theme', savedTheme);
+    document.getElementById('themeIcon').textContent = savedTheme === 'light' ? '🌙' : '☀️';
+    document.getElementById('themeText').textContent = savedTheme === 'light' ? 'Темна тема' : 'Світла тема';
+
+    // Schedule Period logic (Automatic switch after October 28, 2026)
+    // 2026-10-28 23:59:59 (local time cutoff)
+    const cutoffDate = new Date(2026, 9, 28, 23, 59, 59); // month 9 is October (0-indexed)
+    const isAutoRegular = new Date() > cutoffDate;
+    let activePeriod = isAutoRegular ? 'regular' : 'temp';
+
+    function setPeriodFilter(period, btn) {
+      activePeriod = period;
+      document.getElementById('btnPeriodTemp').classList.toggle('active', period === 'temp');
+      document.getElementById('btnPeriodRegular').classList.toggle('active', period === 'regular');
+      updatePeriodUI();
+      filterLessons();
+    }
+
+    function updatePeriodUI() {
+      const titleEl = document.getElementById('periodStatusTitle');
+      const descEl = document.getElementById('periodStatusDesc');
+      const monBadge = document.getElementById('monBadge');
+      const wedBadge = document.getElementById('wedBadge');
+
+      if (activePeriod === 'temp') {
+        if (titleEl) titleEl.textContent = '⚡ Тимчасовий розклад (до 28 жовтня)';
+        if (descEl) descEl.textContent = 'ОНС проводиться у середу (4, 5, 6 пари), фінансову грамотність тимчасово скасовано, у понеділок занять немає. З 29 жовтня розклад автоматично повернеться до звичного.';
+        if (monBadge) monBadge.textContent = 'Занять немає (перенесено)';
+        if (wedBadge) wedBadge.textContent = '6 пар (з ОНС)';
+      } else {
+        if (titleEl) titleEl.textContent = '🗓️ Звичайний розклад (після 28 жовтня)';
+        if (descEl) descEl.textContent = 'ОНС проводиться у понеділок (4, 5 пари), у середу повернено Фінансову грамотність (4 пара). Режим вмикається автоматично з 29 жовтня.';
+        if (monBadge) monBadge.textContent = '2 пари (з 13:00)';
+        if (wedBadge) wedBadge.textContent = '4 пари';
+      }
+    }
+
+    // Filter state
+    let activeWeek = 'all'; // 'all', '1', '2'
+    let activeDay = 'all';  // 'all', 'mon', 'tue', 'wed', 'thu', 'fri', 'sat'
+
+    function setWeekFilter(week, btn) {
+      activeWeek = week;
+      document.querySelectorAll('[data-week]').forEach(b => {
+        if (['all', '1', '2'].includes(b.getAttribute('data-week'))) b.classList.remove('active');
+      });
+      btn.classList.add('active');
+      filterLessons();
+    }
+
+    function setDayFilter(day, btn) {
+      activeDay = day;
+      document.querySelectorAll('[data-day]').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      filterLessons();
+    }
+
+    function filterLessons() {
+      const query = document.getElementById('searchInput').value.toLowerCase().trim();
+      const cards = document.querySelectorAll('.day-card');
+
+      cards.forEach(card => {
+        const dayName = card.getAttribute('data-day-name');
+        const dayMatches = (activeDay === 'all' || activeDay === dayName);
+
+        if (!dayMatches) {
+          card.style.display = 'none';
+          return;
+        }
+
+        const items = card.querySelectorAll('.lesson-item');
+        let visibleItemsCount = 0;
+
+        items.forEach(item => {
+          const itemWeek = item.getAttribute('data-week');
+          const itemSearch = (item.getAttribute('data-search') || '').toLowerCase();
+          const itemPeriod = item.getAttribute('data-period') || 'both';
+
+          // Period matching logic (temp vs regular schedule)
+          let periodMatches = (itemPeriod === 'both' || itemPeriod === activePeriod);
+
+          // Week matching logic
+          let weekMatches = false;
+          if (activeWeek === 'all') {
+            weekMatches = true;
+          } else if (itemWeek === 'both' || itemWeek === activeWeek) {
+            weekMatches = true;
+          }
+
+          // Search query matching
+          const searchMatches = !query || itemSearch.includes(query) || item.innerText.toLowerCase().includes(query);
+
+          if (periodMatches && weekMatches && searchMatches) {
+            item.style.display = 'grid';
+            visibleItemsCount++;
+          } else {
+            item.style.display = 'none';
+          }
+        });
+
+        if (visibleItemsCount > 0) {
+          card.style.display = 'block';
+        } else {
+          card.style.display = 'none';
+        }
+      });
+    }
+
+    // Dynamic Live Tracker & Date info
+    function updateLiveStatus() {
+      const now = new Date();
+      const days = ['Неділя', 'Понеділок', 'Вівторок', 'Середа', 'Четвер', 'Пʼятниця', 'Субота'];
+      const months = ['січня', 'лютого', 'березня', 'квітня', 'травня', 'червня', 'липня', 'серпня', 'вересня', 'жовтня', 'листопада', 'грудня'];
+      
+      const dayName = days[now.getDay()];
+      const dayNum = now.getDate();
+      const monthName = months[now.getMonth()];
+      document.getElementById('currentDateStr').textContent = `${dayName}, ${dayNum} ${monthName}`;
+
+      // Semester start reference: 2026-09-01 (Tuesday of Week 1)
+      const semStart = new Date(2026, 8, 1);
+      const diffWeeks = Math.floor((now - semStart) / (7 * 24 * 3600 * 1000));
+      const isWeek1 = (diffWeeks % 2 === 0);
+      const weekLabel = isWeek1 ? 'Чисельник (І тиждень)' : 'Знаменник (ІІ тиждень)';
+      document.getElementById('currentWeekType').textContent = weekLabel;
+
+      // Current pair indicator
+      const currentMinutes = now.getHours() * 60 + now.getMinutes();
+      const pairs = [
+        { num: '1 пара', start: 8 * 60 + 20, end: 9 * 60 + 40 },
+        { num: '2 пара', start: 9 * 60 + 50, end: 11 * 60 + 10 },
+        { num: '3 пара', start: 11 * 60 + 30, end: 12 * 60 + 50 },
+        { num: '4 пара', start: 13 * 60, end: 14 * 60 + 20 },
+        { num: '5 пара', start: 14 * 60 + 40, end: 16 * 60 },
+        { num: '6 пара', start: 16 * 60 + 10, end: 17 * 60 + 30 }
+      ];
+
+      const timerEl = document.getElementById('pairTimer');
+      let found = false;
+
+      for (const p of pairs) {
+        if (currentMinutes >= p.start && currentMinutes <= p.end) {
+          const left = p.end - currentMinutes;
+          timerEl.innerHTML = `🟢 Зараз триває <b>${p.num}</b> (до кінця ${left} хв)`;
+          found = true;
+          break;
+        } else if (currentMinutes < p.start) {
+          const till = p.start - currentMinutes;
+          timerEl.innerHTML = `⏳ Наступна: <b>${p.num}</b> (через ${till} хв)`;
+          found = true;
+          break;
+        }
+      }
+
+      if (!found) {
+        timerEl.textContent = '🎉 Пари на сьогодні завершилися!';
+      }
+    }
+
+    // Init period button state
+    if (activePeriod === 'regular') {
+      document.getElementById('btnPeriodTemp').classList.remove('active');
+      document.getElementById('btnPeriodRegular').classList.add('active');
+    } else {
+      document.getElementById('btnPeriodTemp').classList.add('active');
+      document.getElementById('btnPeriodRegular').classList.remove('active');
+    }
+    updatePeriodUI();
+    filterLessons();
+    updateLiveStatus();
+    setInterval(updateLiveStatus, 60000);
+  </script>
+</body>
+</html>
