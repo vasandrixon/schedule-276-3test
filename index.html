@@ -1228,6 +1228,60 @@
         transition: none !important;
       }
     }
+
+    /* ===== Графік ротації ОНС ===== */
+    .ons-schedule-box {
+      margin-top: 8px;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+    .ons-schedule-title {
+      font-size: 11.5px;
+      font-weight: 600;
+      color: var(--text-muted);
+    }
+    .ons-pills {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+    }
+    .ons-pill {
+      background: rgba(255, 255, 255, 0.04);
+      border: 1px solid var(--surface-border);
+      color: var(--text-muted);
+      padding: 4px 10px;
+      border-radius: 8px;
+      font-size: 11.5px;
+      font-weight: 600;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      transition: all 0.15s ease;
+    }
+    [data-theme="light"] .ons-pill {
+      background: rgba(15, 23, 42, 0.04);
+    }
+    .ons-pill:hover {
+      border-color: var(--primary);
+      color: var(--text-main);
+    }
+    .ons-pill.active {
+      background: rgba(251, 191, 36, 0.16);
+      border-color: rgba(251, 191, 36, 0.55);
+      color: #fbbf24;
+      font-weight: 700;
+    }
+    [data-theme="light"] .ons-pill.active {
+      color: #b45309;
+      border-color: #d97706;
+      background: rgba(217, 119, 6, 0.12);
+    }
+    .ons-pill.past {
+      opacity: 0.55;
+    }
+
   </style>
 </head>
 <body>
@@ -1350,12 +1404,12 @@
     // week: 'both' — щотижня, '1' — чисельник, '2' — знаменник
     const CORE_LESSONS = [
       // ВІВТОРОК
-      { day: 'tue', pair: 1, week: 'both', subject: 'Податкова система', type: 'prac', teacher: 'Жаворонок А.В.', room: 'к. 19, ауд. 307' },
-      { day: 'tue', pair: 3, week: 'both', subject: 'Іноземна мова за ПС', type: 'prac', teacher: 'Матійчак А.А.', room: 'к. 19, ауд. 206' },
-      { day: 'tue', pair: 4, week: 'both', subject: 'Макроекономіка', type: 'lec', teacher: 'Кузьмук І.Я.', room: 'к. 19, ауд. 307' },
+      { day: 'tue', pair: 1, week: 'both', subject: 'Податкова система', type: 'prac', teacher: 'Жаворонок А.В.', room: 'к. 4, ауд. 45' },
+      { day: 'tue', pair: 3, week: 'both', subject: 'Іноземна мова за ПС', type: 'prac', teacher: 'Матійчак А.А.', room: 'к. 4, ауд. 39' },
+      { day: 'tue', pair: 4, week: 'both', subject: 'Макроекономіка', type: 'lec', teacher: 'Сторощук Б.Д.', room: 'к. 19, ауд. 307' },
       // СЕРЕДА
       { day: 'wed', pair: 1, week: 'both', subject: 'Управління командами', type: 'lec', teacher: 'Кифяк В.І.', room: 'к. 14, ауд. 60' },
-      { day: 'wed', pair: 2, week: 'both', subject: 'Макроекономіка', type: 'prac', teacher: 'Кузьмук І.Я.', room: 'к. 19, ауд. 102' },
+      { day: 'wed', pair: 2, week: 'both', subject: 'Макроекономіка', type: 'prac', teacher: 'Никифорак О.Я.', room: 'к. 19, ауд. 102' },
       { day: 'wed', pair: 3, week: 'both', subject: 'Управління командами', type: 'prac', teacher: 'Пентелейчук М.Г.', room: 'к. 14, ауд. 61' },
       // ЧЕТВЕР
       { day: 'thu', pair: 1, week: 'both', subject: 'Менеджмент', type: 'prac', teacher: 'Антохов А.А.', room: 'к. 19, ауд. 202' },
@@ -1367,6 +1421,105 @@
     ];
 
     // Вибіркові дисципліни. placeholder — де показувати картку «обери предмет», поки нічого не вибрано.
+        // Графік ОНС для групи 276-3 (з IV тижня ОНС — І тиждень/Чисельник, Понеділок, 4 пара 13:00–14:20)
+    const ONS_SCHEDULE = [
+      {
+        onsWeek: 'IV тиждень (26–30 жовтня)',
+        date: '2026-10-26',
+        until: '2026-11-01',
+        dateLabel: '26.10',
+        subject: 'ОНС: Зв’язок та передавання інформації (Тема 2)',
+        shortTitle: 'Зв’язок',
+        teacher: 'Чопенко Б.Л.',
+        room: 'Клас 35 (Військ. каф.)',
+        shortRoom: 'кл. 35'
+      },
+      {
+        onsWeek: 'VI тиждень (09–13 листопада)',
+        date: '2026-11-09',
+        until: '2026-11-15',
+        dateLabel: '09.11',
+        subject: 'ОНС: Зброя масового ураження — ЗМУ (Тема 2)',
+        shortTitle: 'ЗМУ',
+        teacher: 'Стецюк А.В.',
+        room: 'Клас 28 (Військ. каф.)',
+        shortRoom: 'кл. 28'
+      },
+      {
+        onsWeek: 'VIII тиждень (23–27 листопада)',
+        date: '2026-11-23',
+        until: '2026-11-29',
+        dateLabel: '23.11',
+        subject: 'ОНС: Психологічна підготовка та стійкість (Тема 2)',
+        shortTitle: 'Псих. п-ка',
+        teacher: 'Зорій Я.Б.',
+        room: 'Клас 25 (Військ. каф.)',
+        shortRoom: 'кл. 25'
+      },
+      {
+        onsWeek: 'X тиждень (07–11 грудня)',
+        date: '2026-12-07',
+        until: '2026-12-13',
+        dateLabel: '07.12',
+        subject: 'ОНС: Військова топографія, навігація і орієнтування — ВТ (Тема 2)',
+        shortTitle: 'ВТ (Топографія)',
+        teacher: 'Топчій С.М.',
+        room: 'Клас 21 (Військ. каф.)',
+        shortRoom: 'кл. 21'
+      },
+      {
+        onsWeek: 'XII тиждень (21–25 грудня)',
+        date: '2026-12-21',
+        until: '2026-12-31',
+        dateLabel: '21.12',
+        subject: 'ОНС: Зв’язок та передавання інформації (Тема 2)',
+        shortTitle: 'Зв’язок',
+        teacher: 'Чопенко Б.Л.',
+        room: 'Клас 35 (Військ. каф.)',
+        shortRoom: 'кл. 35'
+      }
+    ];
+
+    let selectedOnsIdx = null; // null = автоматично за датою
+
+    function getAutoOnsIndex(now = new Date()) {
+      const iso = `${now.getFullYear()}-${String(now.getMonth() + 1).padStart(2, '0')}-${String(now.getDate()).padStart(2, '0')}`;
+      const idx = ONS_SCHEDULE.findIndex(item => iso <= item.until);
+      return idx !== -1 ? idx : ONS_SCHEDULE.length - 1;
+    }
+
+    function getActiveOns() {
+      const autoIdx = getAutoOnsIndex();
+      const idx = selectedOnsIdx !== null ? selectedOnsIdx : autoIdx;
+      return { item: ONS_SCHEDULE[idx], idx, autoIdx };
+    }
+
+    function setOnsWeek(idx) {
+      selectedOnsIdx = (idx === getAutoOnsIndex() && selectedOnsIdx !== null) ? null : idx;
+      renderSchedule();
+    }
+
+    function renderOnsBox() {
+      const { idx, autoIdx } = getActiveOns();
+      const pills = ONS_SCHEDULE.map((it, i) => {
+        const isPast = i < autoIdx;
+        const isActive = i === idx;
+        const isAutoCurrent = i === autoIdx;
+        const cls = ['ons-pill', isActive ? 'active' : '', isPast && !isActive ? 'past' : ''].filter(Boolean).join(' ');
+        const tag = isAutoCurrent ? '• цей тиждень' : isPast ? '✓' : '';
+        return `<button type="button" class="${cls}" onclick="setOnsWeek(${i})" title="${esc(it.onsWeek)}: ${esc(it.subject)} — ${esc(it.teacher)}, ${esc(it.room)}">
+          <span>${esc(it.dateLabel)}</span>
+          <span>${esc(it.shortTitle)} (${esc(it.shortRoom)})</span>
+          ${tag ? `<span style="font-size:10px;opacity:0.85;">${tag}</span>` : ''}
+        </button>`;
+      }).join('');
+      return `
+        <div class="ons-schedule-box">
+          <div class="ons-schedule-title">🔄 Автоматична ротація пар ОНС для 276-3 (І тиждень / Чисельник, 4 пара — натисніть для перегляду):</div>
+          <div class="ons-pills">${pills}</div>
+        </div>`;
+    }
+
     const ZU_TAG = { type: 'elective', typeLabel: 'Загальноуніверситетська' };
     const zuOnline = (id, name, teacher) => ({
       id, name, hint: 'Ср 13:00 • онлайн' + (teacher ? ' • ' + teacher : ''),
@@ -1377,16 +1530,24 @@
       {
         key: 'mil',
         title: 'Понеділок: ОНС або дисципліна вибору',
-        desc: 'Хлопці — Основи національного спротиву (2 пари о 13:00), дівчата — Економічна безпека або Інтелектуальний потенціал територіальних громад (1 пара о 08:20).',
+        desc: 'Хлопці — Основи національного спротиву (4 пара о 13:00, І тиждень / Чисельник, теми змінюються автоматично), дівчата — Економічна безпека або Інтелектуальний потенціал територіальних громад (1 пара о 08:20).',
         placeholder: { day: 'mon', pair: 1, week: 'both' },
         options: [
           {
-            id: 'ons', name: 'Основи національного спротиву (ОНС)', hint: 'Пн 13:00 + 14:40 • щотижня • хлопці',
-            lessons: [4, 5].map(pair => ({
-              day: 'mon', pair, week: 'both', subject: 'Основи національного спротиву (ОНС)',
-              type: 'spec', typeLabel: 'Військова кафедра', teacher: 'Кафедра військової підготовки / ОНС',
-              room: 'Військова каф.', note: '⚠️ Початок занять з 1 жовтня 2026 року'
-            }))
+            id: 'ons', name: 'Основи національного спротиву (ОНС)', hint: 'Пн 13:00 (4 пара) • І тиждень (Чисельник) • автозміна тем',
+            get lessons() {
+              const { item } = getActiveOns();
+              const allSearch = ONS_SCHEDULE.map(x => `${x.dateLabel} ${x.subject} ${x.teacher} ${x.room}`).join(' ');
+              return [{
+                day: 'mon', pair: 4, week: '1',
+                subject: item.subject,
+                type: 'spec', typeLabel: 'Військова кафедра',
+                teacher: `${item.teacher} • ${item.onsWeek} (${item.dateLabel})`,
+                room: item.room,
+                isOns: true,
+                extraSearch: allSearch
+              }];
+            }
           },
           {
             id: 'eb', name: 'Економічна безпека', hint: 'Пн 08:20 • щотижня • Стахова Н.П.',
@@ -1413,7 +1574,7 @@
           },
           ...[
             ['coaching', 'Коучинг', 'Кобеля З.І.', 'к. 14, ауд. 60'],
-            ['franchising', 'Франчайзинг', 'Ілащук С.А.', 'к. 14, ауд. 73'],
+            ['franchising', 'Франчайзинг', 'Ілащук С.А.', 'к. 14, ауд. 45'],
             ['project', 'Основи проектного мислення', 'Яскал О.О.', 'к. 14, ауд. 48'],
             ['inteco', 'Міжнародна економіка', '', ''],
             ['intman', 'Міжнародний менеджмент', '', '']
@@ -1648,7 +1809,7 @@
       if (l.room) rooms.push(`<span class="room-badge"${l.online ? ' style="font-size:11.5px;"' : ''}>${esc(l.room)}</span>`);
       if (l.electiveKey) rooms.push(`<button class="change-btn" onclick="openModal('${l.electiveKey}')">Змінити</button>`);
 
-      const search = [l.subject, typeText, l.teacher, l.room, l.online ? 'онлайн' : '', weekLabel(l.week)].join(' ').toLowerCase();
+      const search = [l.subject, typeText, l.teacher, l.room, l.extraSearch || '', l.online ? 'онлайн' : '', weekLabel(l.week)].join(' ').toLowerCase();
 
       return `
         <div class="lesson-item t-${l.type || 'spec'}" data-week="${l.week}" data-day="${l.day}" data-start="${lessonStart(l)}" data-end="${lessonEnd(l)}" data-search="${esc(search)}">
@@ -1665,6 +1826,7 @@
             </div>
             ${teacher ? `<div class="lesson-teacher">${teacher}</div>` : ''}
             ${l.note ? `<div class="lesson-note">${esc(l.note)}</div>` : ''}
+            ${l.isOns ? renderOnsBox() : ''}
             ${l.conflicts ? `<div class="conflict-note">⛔ Накладка з: ${esc([...new Set(l.conflicts)].join(', '))}</div>` : ''}
           </div>
           <div class="room-col">${rooms.join('')}</div>
